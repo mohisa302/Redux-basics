@@ -1,18 +1,18 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
-import CardItem from "./CardItem";
-import { clearCard } from "../redux/features/card/cardSlice";
+import CardItem from './CardItem';
+import { clearCard } from '../redux/features/card/cardSlice';
 
 const CardContainer = () => {
   const dispatch = useDispatch();
   const { amount, cardItems, total } = useSelector((state) => state.cards);
-  
+
   if (amount < 1) {
     return (
       <section className="cart">
         <header>
           <h2>your bag</h2>
-          <h4 className='empty-cart'>is currently empty</h4>
+          <h4 className="empty-cart">is currently empty</h4>
         </header>
       </section>
     );
@@ -24,24 +24,30 @@ const CardContainer = () => {
         <h2>your bag</h2>
       </header>
       <div>
-        {cardItems.map((item) => {
-          return <CardItem key={item.id} {...item} />
-        })}
+        {cardItems.map((item) => <CardItem key={item.id} {...item} />)}
       </div>
       <footer>
         <hr />
         <div className="cart-total">
           <h4>
-            total <span>${total}</span>
+            total
+            {' '}
+            <span>
+              $
+              {total.toFixed(2)}
+            </span>
           </h4>
         </div>
-        <button className="btn clear-btn" onClick={() => {
-          dispatch(clearCard())
-        }}>
+        <button
+          className="btn clear-btn"
+          onClick={() => {
+            dispatch(clearCard());
+          }}
+        >
           clear cart
         </button>
       </footer>
     </section>
-  )
-}
+  );
+};
 export default CardContainer;
